@@ -8,6 +8,8 @@ the tables and eat them.
 The bar shows a small 🗑️ button. Click it and the game opens in its own
 window; click it again and that window is focused instead of a new one opening.
 
+By **bert** — [@AlbertDIII](https://x.com/AlbertDIII) on X.
+
 ![Trashie](preview.png)
 
 ## Install
@@ -52,8 +54,9 @@ Then add the **Trashie** widget to your bar from the Omarchy bar settings.
 
 ## Credits
 
-Game, art, and audio by bert. Ghost-chase behaviour follows the classic
+Game, art, and audio by bert — [@AlbertDIII](https://x.com/AlbertDIII).
+The four bugs (Hunter, Amber, Roger, Winston) chase using the classic
 *Pac-Man Dossier* targeting rules. Not affiliated with Namco/Bandai — Trashie is
-a package-manager parody, with its own maze, sprites, and name.
+a package-manager parody, with its own maze, sprites, and names.
 
 MIT licensed.

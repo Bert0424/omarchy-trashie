@@ -62,10 +62,10 @@
 <p class="hint"><b>Arrows / WASD</b> to move &middot; <kbd>G</kbd> targets &middot; <kbd>M</kbd> mute &middot; <kbd>P</kbd> pause &middot; <kbd>R</kbd> restart</p>
 
 <div class="legend">
-  <div class="lg"><i style="background:#e5484d"></i><div><b>Hunter</b> &mdash; Blinky<span>Targets Trashie's tile head-on.</span></div></div>
-  <div class="lg"><i style="background:#ef7fb8"></i><div><b>Ambusher</b> &mdash; Pinky<span>Targets 4 tiles ahead of Trashie.</span></div></div>
-  <div class="lg"><i style="background:#4fd1b0"></i><div><b>Flanker</b> &mdash; Inky<span>Uses Hunter's position to pincer &mdash; vector from Blinky through 2 tiles ahead of Trashie, doubled.</span></div></div>
-  <div class="lg"><i style="background:#f0913e"></i><div><b>Straggler</b> &mdash; Clyde<span>Chases when far; peels off to his corner within 8 tiles.</span></div></div>
+  <div class="lg"><i style="background:#e5484d"></i><div><b>Hunter</b><span>Charges straight at Trashie's tile.</span></div></div>
+  <div class="lg"><i style="background:#ef7fb8"></i><div><b>Amber</b><span>Ambushes &mdash; aims four tiles ahead of Trashie.</span></div></div>
+  <div class="lg"><i style="background:#4fd1b0"></i><div><b>Roger</b><span>Flanks &mdash; a vector from Hunter through two tiles ahead of Trashie, doubled.</span></div></div>
+  <div class="lg"><i style="background:#f0913e"></i><div><b>Winston</b><span>Straggles &mdash; chases when far, peels to his corner within eight tiles.</span></div></div>
 </div>
 
 <footer>
@@ -84,10 +84,10 @@ var WAVES = [['scatter',7],['chase',20],['scatter',7],['chase',20],['scatter',5]
 var COL = { void:'#05060c', wall:'#25335c', wallHi:'#35497f', door:'#ef7fb8',
             dot:'#f3d38a', pow:'#ffe9b0', text:'#e8eaf6', muted:'#7f88ad' };
 var GH = [
-  { name:'blinky', color:'#e5484d', corner:{c:W-2,r:1},   start:{c:10,r:8},  state:'out',   rel:0 },
-  { name:'pinky',  color:'#ef7fb8', corner:{c:1,r:1},      start:{c:10,r:10}, state:'house', rel:2 },
-  { name:'inky',   color:'#4fd1b0', corner:{c:W-2,r:W-2},  start:{c:9,r:10},  state:'house', rel:5 },
-  { name:'clyde',  color:'#f0913e', corner:{c:1,r:W-2},    start:{c:11,r:10}, state:'house', rel:8 }
+  { name:'hunter', color:'#e5484d', corner:{c:W-2,r:1},   start:{c:10,r:8},  state:'out',   rel:0 },
+  { name:'amber',  color:'#ef7fb8', corner:{c:1,r:1},      start:{c:10,r:10}, state:'house', rel:2 },
+  { name:'roger',   color:'#4fd1b0', corner:{c:W-2,r:W-2},  start:{c:9,r:10},  state:'house', rel:5 },
+  { name:'winston',  color:'#f0913e', corner:{c:1,r:W-2},    start:{c:11,r:10}, state:'house', rel:8 }
 ];
 
 /* ============ audio ============ */
@@ -215,7 +215,7 @@ function reset(full){
     var e = mkEnt(g.start.c, g.start.r, 1);
     e.name = g.name; e.color = g.color; e.corner = g.corner;
     e.state = g.state; e.rel = g.rel; e.bob = 0; e.reviveAt = 0;
-    e.dir = (g.name === 'blinky') ? 1 : 0;
+    e.dir = (g.name === 'hunter') ? 1 : 0;
     setNext(e);
     return e;
   });
@@ -233,17 +233,17 @@ function setNext(e){
 
 /* ============ ghost AI ============ */
 function omanTile(){ return { c: oman.c, r: oman.r }; }
-function blinkyTile(){ return { c: ghosts[0].c, r: ghosts[0].r }; }
+function hunterTile(){ return { c: ghosts[0].c, r: ghosts[0].r }; }
 
 function chaseTarget(e){
   var o = omanTile(), d = DIR[oman.dir];
-  if(e.name === 'blinky') return o;
-  if(e.name === 'pinky')  return { c:o.c + 4*d.x, r:o.r + 4*d.y };
-  if(e.name === 'inky'){
-    var p = { c:o.c + 2*d.x, r:o.r + 2*d.y }, b = blinkyTile();
+  if(e.name === 'hunter') return o;
+  if(e.name === 'amber')  return { c:o.c + 4*d.x, r:o.r + 4*d.y };
+  if(e.name === 'roger'){
+    var p = { c:o.c + 2*d.x, r:o.r + 2*d.y }, b = hunterTile();
     return { c: p.c + (p.c - b.c), r: p.r + (p.r - b.r) };
   }
-  // clyde
+  // winston
   var dist2 = (e.c - o.c)*(e.c - o.c) + (e.r - o.r)*(e.r - o.r);
   return dist2 > 64 ? o : e.corner;
 }
@@ -586,7 +586,7 @@ function bake(key, fn){
       })(dir, op, fl, st);
     }
   });
-  var BUGS = { blinky:'#e5484d', pinky:'#ef7fb8', inky:'#4fd1b0', clyde:'#f0913e' };
+  var BUGS = { hunter:'#e5484d', amber:'#ef7fb8', roger:'#4fd1b0', winston:'#f0913e' };
   Object.keys(BUGS).forEach(function(nm){
     for(var fr=0; fr<2; fr++)
       (function(name,color,frame){
