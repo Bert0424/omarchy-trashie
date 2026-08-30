@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "bert.trashie",
+  "name": "Trashie",
+  "version": "1.0.0",
+  "author": "bert",
+  "license": "MIT",
+  "description": "A Pac-Man-style arcade game in your bar. Play Trashie the trash can: gobble junk files and outrun the virus bugs through the directory maze. Opens in its own window.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Trashie",
+    "description": "Click the trash can to play the maze game in its own window.",
+    "category": "Fun",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}
