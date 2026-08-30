@@ -22,6 +22,23 @@ omarchy-restart-shell
 
 Then add the **Trashie** widget to your bar from the Omarchy bar settings.
 
+## Requirements
+
+Stock Omarchy only: `omarchy-launch-webapp` (ships with Omarchy) and a
+Chromium-family browser (Omarchy installs one by default). No other
+dependencies, no build step.
+
+## Remove
+
+```bash
+omarchy plugin disable bert.trashie
+omarchy plugin remove bert.trashie
+omarchy-restart-shell
+```
+
+Nothing else is left behind — no config is touched, no files are written.
+If a game window is open, just close it.
+
 ## How to play
 
 | Key | |
@@ -45,12 +62,12 @@ Then add the **Trashie** widget to your bar from the Omarchy bar settings.
 - Clicking it runs `scripts/launch.sh`, which opens the bundled file
   `game/index.html` as a chromeless web-app window using Omarchy's own
   `omarchy-launch-webapp` (your default supported browser, `--app` mode).
-- `game/index.html` is a single self-contained file. It makes **no network
-  requests**, sends **no telemetry**, writes **no files**, and uses **no
-  elevated privileges**. The pixel fonts are embedded in the file; the sound is
-  synthesised in the browser with the Web Audio API.
+- `game/index.html` is self-contained. It makes **no network requests**, sends
+  **no telemetry**, writes **no files**, and uses **no elevated privileges**.
+  The two pixel fonts sit next to it in `game/fonts/` and load by relative path;
+  the sound is synthesised in the browser with the Web Audio API.
 - No background service, no state files, no PipeWire modules — nothing persists.
-- Removing the plugin leaves nothing behind. If a game window is open, close it.
+- Removing the plugin leaves nothing behind (see **Remove** above).
 
 ## Credits
 
